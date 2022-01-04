@@ -7,12 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.yuri.apprickmorty.R
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PesonagensFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
 
     override fun onCreateView(
