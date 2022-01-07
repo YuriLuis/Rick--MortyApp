@@ -18,14 +18,6 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val repository = PersonagemRepositoryImpl(api = RickMortyRetrofit.apiRickMorty)
-
-        runBlocking {
-            val result = repository.getPersonagens(1)
-            Log.d("MyRepository", result.data?.results.toString() )
-        }
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
