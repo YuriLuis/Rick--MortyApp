@@ -14,6 +14,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "RICK_MORTY_API_URL", RICK_MORTY_API_URL)
     }
 
     buildTypes {
@@ -28,6 +30,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    dataBinding{
+        enabled = true
     }
 }
 
@@ -47,6 +53,7 @@ dependencies {
     //Couroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Testing Coroutine
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
 
@@ -68,6 +75,13 @@ dependencies {
 
     //Thuth
     testImplementation "com.google.truth:truth:1.1.3"
+    //MockWebServer
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
+
+    //Mockito
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
