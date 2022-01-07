@@ -1,11 +1,15 @@
 package com.yuri.apprickmorty.ui.main.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yuri.apprickmorty.R
+import com.yuri.apprickmorty.data.repositories.PersonagemRepositoryImpl
+import com.yuri.apprickmorty.data.services.remote.api.RickMortyRetrofit
+import kotlinx.coroutines.runBlocking
 
 class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
 
@@ -14,6 +18,14 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val repository = PersonagemRepositoryImpl(api = RickMortyRetrofit.apiRickMorty)
+
+        runBlocking {
+            val result = repository.getPersonagens(1)
+            Log.d("MyRepository", result.data?.results.toString() )
+        }
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 

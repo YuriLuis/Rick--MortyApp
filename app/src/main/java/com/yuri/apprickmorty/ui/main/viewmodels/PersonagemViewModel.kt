@@ -18,10 +18,37 @@ class PersonagemViewModel(
     val personagensLiveData: LiveData<List<Personagem>>
     get() = personagens
 
-
     fun getPersonagens(pagina: Int){
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagens(pagina)
+            personagens.postValue(listaPersonagens.data?.results)
+        }
+    }
+
+    fun getPersonagensPorNome(nome: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val listaPersonagens = repository.getPersonagensPorNome(nome)
+            personagens.postValue(listaPersonagens.data?.results)
+        }
+    }
+
+    fun getPersonagensPorStatusEGenero(status: String, genero: String, pagina: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val listaPersonagens = repository.getPersonagensPorStatusEGenero(status, genero, pagina)
+            personagens.postValue(listaPersonagens.data?.results)
+        }
+    }
+
+    fun getPersonagensPorGenero(genero: String, pagina: Int){
+        viewModelScope.launch(Dispatchers.IO){
+            val listaPersonagens = repository.getPersonagensPorGenero(genero,pagina)
+            personagens.postValue(listaPersonagens.data?.results)
+        }
+    }
+
+    fun getPersonagensPorStatus(status: String, pagina: Int){
+        viewModelScope.launch(Dispatchers.IO){
+            val listaPersonagens = repository.getPersonagensPorStatus(status, pagina)
             personagens.postValue(listaPersonagens.data?.results)
         }
     }
