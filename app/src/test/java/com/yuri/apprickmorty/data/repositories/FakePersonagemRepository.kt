@@ -91,10 +91,10 @@ class FakePersonagemRepository : PersonagemRepository {
         )
     )
 
-    private var shouldReturnNetworkError = false
+    var houveErroInternet = false
 
     override suspend fun getPersonagens(pagina: Int): Resource<PersonagemResponse> {
-        return if (shouldReturnNetworkError) {
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             Resource.Success(PersonagemResponse(personagens))
@@ -103,7 +103,7 @@ class FakePersonagemRepository : PersonagemRepository {
 
     override suspend fun getPersonagensPorNome(nome: String): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -123,7 +123,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -144,7 +144,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -163,7 +163,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->

@@ -9,7 +9,6 @@ class PersonagemRepositoryImpl(
     private var api: RickMortyApi
 ) : PersonagemRepository {
 
-
     private fun responseToResource(response: Response<PersonagemResponse>): Resource<PersonagemResponse> {
         if (response.isSuccessful) {
             response.body()?.let { result ->
