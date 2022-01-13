@@ -14,14 +14,19 @@ class PersonagemViewModel(
 ): ViewModel() {
 
     private var personagens = MutableLiveData<List<Personagem>>()
+    private var isFiltro = MutableLiveData<Boolean>()
 
     val personagensLiveData: LiveData<List<Personagem>>
     get() = personagens
+
+    val isFiltroLiveData: LiveData<Boolean>
+    get() = isFiltro
 
     fun getPersonagens(pagina: Int){
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagens(pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(false)
         }
     }
 
@@ -29,6 +34,7 @@ class PersonagemViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagensPorNome(nome)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
@@ -36,6 +42,7 @@ class PersonagemViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagensPorStatusEGenero(status, genero, pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
@@ -43,6 +50,7 @@ class PersonagemViewModel(
         viewModelScope.launch(Dispatchers.IO){
             val listaPersonagens = repository.getPersonagensPorGenero(genero,pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
@@ -50,6 +58,7 @@ class PersonagemViewModel(
         viewModelScope.launch(Dispatchers.IO){
             val listaPersonagens = repository.getPersonagensPorStatus(status, pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 }
