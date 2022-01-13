@@ -4,6 +4,7 @@ import com.yuri.apprickmorty.data.models.LocacaoData
 import com.yuri.apprickmorty.data.models.Personagem
 import com.yuri.apprickmorty.data.models.PersonagemResponse
 import com.yuri.apprickmorty.utils.Resource
+import kotlinx.coroutines.delay
 
 class FakePersonagemRepository : PersonagemRepository {
 
@@ -94,6 +95,7 @@ class FakePersonagemRepository : PersonagemRepository {
     var houveErroInternet = false
 
     override suspend fun getPersonagens(pagina: Int): Resource<PersonagemResponse> {
+        delay(1000)
         return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
@@ -103,6 +105,7 @@ class FakePersonagemRepository : PersonagemRepository {
 
     override suspend fun getPersonagensPorNome(nome: String): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
+        delay(1000)
         return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
@@ -123,6 +126,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
+        delay(1000)
         return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
@@ -144,6 +148,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
+        delay(1000)
         return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
@@ -163,6 +168,7 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
+        delay(1000)
         return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
