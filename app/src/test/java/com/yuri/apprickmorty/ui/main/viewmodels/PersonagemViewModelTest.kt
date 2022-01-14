@@ -25,7 +25,6 @@ class PersonagemViewModelTest {
     @Before
     fun setUp() {
         repository = FakePersonagemRepository()
-        //repository = PersonagemRepositoryImpl(RickMortyRetrofit.apiRickMorty)
         viewModel = PersonagemViewModel(repository)
 
     }
@@ -72,5 +71,13 @@ class PersonagemViewModelTest {
         val result = viewModel.personagensLiveData.getOrAwaitValue()
         assertThat(result).isNotEmpty()
         assertThat(result.size).isEqualTo(5)
+    }
+
+    @Test
+    fun `view model deve retorna null se houver erro com internet`(){
+        repository.houveErroInternet = true
+        viewModel.getPersonagens(1)
+        val result = viewModel.personagensLiveData.getOrAwaitValue()
+        assertThat(result).isNull()
     }
 }

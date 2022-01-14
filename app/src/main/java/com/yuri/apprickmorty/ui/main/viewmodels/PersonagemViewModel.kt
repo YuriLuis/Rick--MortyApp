@@ -7,49 +7,65 @@ import androidx.lifecycle.viewModelScope
 import com.yuri.apprickmorty.data.models.Personagem
 import com.yuri.apprickmorty.data.repositories.PersonagemRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class PersonagemViewModel(
     private val repository: PersonagemRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var personagens = MutableLiveData<List<Personagem>>()
+    private var isFiltro = MutableLiveData<Boolean>()
+    private var isCarregando = MutableLiveData<Boolean>()
 
     val personagensLiveData: LiveData<List<Personagem>>
-    get() = personagens
+        get() = personagens
 
-    fun getPersonagens(pagina: Int){
+    val isFiltroLiveData: LiveData<Boolean>
+        get() = isFiltro
+
+    val isCarregandoLiveData: LiveData<Boolean>
+        get() = isCarregando
+
+    fun getPersonagens(pagina: Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            isCarregando.postValue(true)
             val listaPersonagens = repository.getPersonagens(pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(false)
+            isCarregando.postValue(false)
         }
     }
 
-    fun getPersonagensPorNome(nome: String){
+    fun getPersonagensPorNome(nome: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagensPorNome(nome)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
-    fun getPersonagensPorStatusEGenero(status: String, genero: String, pagina: Int){
+    fun getPersonagensPorStatusEGenero(status: String, genero: String, pagina: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagensPorStatusEGenero(status, genero, pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
-    fun getPersonagensPorGenero(genero: String, pagina: Int){
-        viewModelScope.launch(Dispatchers.IO){
-            val listaPersonagens = repository.getPersonagensPorGenero(genero,pagina)
+    fun getPersonagensPorGenero(genero: String, pagina: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val listaPersonagens = repository.getPersonagensPorGenero(genero, pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 
-    fun getPersonagensPorStatus(status: String, pagina: Int){
-        viewModelScope.launch(Dispatchers.IO){
+    fun getPersonagensPorStatus(status: String, pagina: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
             val listaPersonagens = repository.getPersonagensPorStatus(status, pagina)
             personagens.postValue(listaPersonagens.data?.results)
+            isFiltro.postValue(true)
         }
     }
 }

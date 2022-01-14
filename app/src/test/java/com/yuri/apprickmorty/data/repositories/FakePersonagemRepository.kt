@@ -4,6 +4,7 @@ import com.yuri.apprickmorty.data.models.LocacaoData
 import com.yuri.apprickmorty.data.models.Personagem
 import com.yuri.apprickmorty.data.models.PersonagemResponse
 import com.yuri.apprickmorty.utils.Resource
+import kotlinx.coroutines.delay
 
 class FakePersonagemRepository : PersonagemRepository {
 
@@ -91,10 +92,11 @@ class FakePersonagemRepository : PersonagemRepository {
         )
     )
 
-    private var shouldReturnNetworkError = false
+    var houveErroInternet = false
 
     override suspend fun getPersonagens(pagina: Int): Resource<PersonagemResponse> {
-        return if (shouldReturnNetworkError) {
+        delay(1000)
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             Resource.Success(PersonagemResponse(personagens))
@@ -103,7 +105,8 @@ class FakePersonagemRepository : PersonagemRepository {
 
     override suspend fun getPersonagensPorNome(nome: String): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        delay(1000)
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -123,7 +126,8 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        delay(1000)
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -144,7 +148,8 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        delay(1000)
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
@@ -163,7 +168,8 @@ class FakePersonagemRepository : PersonagemRepository {
         pagina: Int
     ): Resource<PersonagemResponse> {
         val lista = mutableListOf<Personagem>()
-        return if (shouldReturnNetworkError) {
+        delay(1000)
+        return if (houveErroInternet) {
             Resource.Error("Erro getPersonagens")
         } else {
             personagens.forEach { personagem ->
