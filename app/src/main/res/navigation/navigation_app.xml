@@ -9,5 +9,19 @@
         android:id="@+id/pesonagensFragment"
         android:name="com.yuri.apprickmorty.ui.main.views.PesonagensFragment"
         android:label="fragment_pesonagens"
-        tools:layout="@layout/fragment_pesonagens" />
+        tools:layout="@layout/fragment_pesonagens" >
+        <action
+            android:id="@+id/action_pesonagensFragment_to_detalhePersonagemFragment"
+            app:destination="@id/detalhePersonagemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalhePersonagemFragment"
+        android:name="com.yuri.apprickmorty.ui.main.views.DetalhePersonagemFragment"
+        android:label="DetalhePersonagemFragment"
+        tools:layout="@layout/fragment_detalhe_personagem">
+        <argument android:name="personagem"
+            app:argType="com.yuri.apprickmorty.data.models.Personagem">
+
+        </argument>
+    </fragment>
 </navigation>

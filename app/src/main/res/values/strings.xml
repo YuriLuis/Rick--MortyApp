@@ -5,4 +5,7 @@
     <string name="pesquisar_personagem">Pesquisar personagem</string>
     <string name="personagens">Personagens</string>
     <string name="resete">Resete</string>
+    <string name="episodios">Episódios</string>
+    <string name="origem">Origem</string>
+    <string name="localizacao">Localização</string>
 </resources>

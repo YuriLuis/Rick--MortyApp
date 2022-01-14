@@ -2,13 +2,11 @@ package com.yuri.apprickmorty.ui.main.views
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.yuri.apprickmorty.R
@@ -18,7 +16,6 @@ import com.yuri.apprickmorty.databinding.FragmentPesonagensBinding
 import com.yuri.apprickmorty.ui.main.adapters.ListaPersonagemAdapter
 import com.yuri.apprickmorty.ui.main.viewmodels.PersonagemViewModel
 import com.yuri.apprickmorty.ui.main.viewmodelsfactory.PersonagemViewModelFactory
-import kotlinx.coroutines.runBlocking
 
 const val PAGINA_INICIAL = 1
 
@@ -36,14 +33,30 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pesonagens, container, false)
-        configuraObserverListaPersonagens()
         iniciaComponentesView()
+        configuraObserverIsCarregando()
+        configuraObserverListaPersonagens()
         return binding.root
     }
 
     private fun configuraObserverListaPersonagens() {
-        viewModel.personagensLiveData.observe(viewLifecycleOwner, { lista ->
-            adapter.setPersonagensParaAdapter(lista)
+        viewModel.personagensLiveData.observe(viewLifecycleOwner, {
+            adapter.setPersonagensParaAdapter(it)
+        })
+    }
+
+    private fun configuraObserverIsCarregando(){
+        viewModel.isCarregandoLiveData.observe(viewLifecycleOwner, { isCarregando ->
+            when {
+                isCarregando -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.recycclerviewPersonagens.visibility = View.INVISIBLE
+                }
+                else -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.recycclerviewPersonagens.visibility = View.VISIBLE
+                }
+            }
         })
     }
 
@@ -85,6 +98,6 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        viewModel.getPersonagens(PAGINA_INICIAL)
+           viewModel.getPersonagens(PAGINA_INICIAL)
     }
 }

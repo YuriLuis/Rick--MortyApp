@@ -12,4 +12,7 @@
     <dimen name="dimensao_12_dp">12dp</dimen>
     <dimen name="tamanho_fonte_16_sp">16sp</dimen>
     <dimen name="tamanho_fonte_12_sp">12sp</dimen>
+    <dimen name="dimensao_32_dp">32dp</dimen>
+    <dimen name="tamanho_fonte_20_dp">20sp</dimen>
+    <dimen name="dimensao_24_dp">24dp</dimen>
 </resources>

@@ -1,17 +1,20 @@
 package com.yuri.apprickmorty.ui.main.adapters
 
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.yuri.apprickmorty.R
 import com.yuri.apprickmorty.data.models.Personagem
-import kotlin.coroutines.coroutineContext
+import com.yuri.apprickmorty.ui.main.views.DetalhePersonagemFragment
+
+const val PERSONAGEM_KEY = "PERSONAGEM_KEY"
 
 class ListaPersonagemAdapter : RecyclerView.Adapter<ListaPersonagemAdapter.PersonagemViewHolder>() {
 
@@ -26,7 +29,10 @@ class ListaPersonagemAdapter : RecyclerView.Adapter<ListaPersonagemAdapter.Perso
     override fun onBindViewHolder(holder: PersonagemViewHolder, position: Int) {
         holder.bind(listaDePersonagens[position])
 
-        holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener { view ->
+            val bundle = bundleOf(PERSONAGEM_KEY to listaDePersonagens[position])
+            view.findNavController()
+                .navigate(R.id.action_pesonagensFragment_to_detalhePersonagemFragment, bundle)
         }
     }
 
@@ -34,7 +40,7 @@ class ListaPersonagemAdapter : RecyclerView.Adapter<ListaPersonagemAdapter.Perso
         return listaDePersonagens.size
     }
 
-    fun setPersonagensParaAdapter(listaDePersonagem: List<Personagem>){
+    fun setPersonagensParaAdapter(listaDePersonagem: List<Personagem>) {
         listaDePersonagens = listaDePersonagem
         notifyDataSetChanged()
     }
@@ -42,11 +48,12 @@ class ListaPersonagemAdapter : RecyclerView.Adapter<ListaPersonagemAdapter.Perso
     class PersonagemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var imagemPersonagem: ImageView = itemView.findViewById(R.id.imagemViewPersonagem)
-        private var statusPersonagem: TextView = itemView.findViewById(R.id.textViewStatusPersonagem)
+        private var statusPersonagem: TextView =
+            itemView.findViewById(R.id.textViewStatusPersonagem)
         private var id_number: TextView = itemView.findViewById(R.id.textViewIdPersonagem)
         private var name_character: TextView = itemView.findViewById(R.id.textViewNomePersonagem)
 
-        fun bind(personagem: Personagem){
+        fun bind(personagem: Personagem) {
             Picasso.get().load(personagem.image).into(imagemPersonagem)
             statusPersonagem.text = personagem.status
             id_number.text = personagem.id.toString()
