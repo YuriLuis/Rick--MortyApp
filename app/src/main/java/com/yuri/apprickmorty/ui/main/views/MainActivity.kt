@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.yuri.apprickmorty.R
 import com.yuri.apprickmorty.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var navControllerCallback: NavController? = null
+    private var navController: NavController? = null
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,14 +22,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navControllerCallback = findNavController(R.id.navHostFragment)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.newsFragment) as NavHostFragment
 
-        setupActionBarWithNavController(navControllerCallback!!)
+        navController = navHostFragment.navController
 
+
+        setupActionBarWithNavController(navController!!)
+        binding.bnvPersonagens.setupWithNavController(
+            navController!!
+        )
     }
-
     override fun onSupportNavigateUp(): Boolean {
-        return navControllerCallback!!.navigateUp() || super.onSupportNavigateUp()
+        return navController!!.navigateUp() || super.onSupportNavigateUp()
     }
 
 }

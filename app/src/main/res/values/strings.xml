@@ -8,4 +8,6 @@
     <string name="episodios">Episódios</string>
     <string name="origem">Origem</string>
     <string name="localizacao">Localização</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="todos_personagens">Todos Personagens</string>
 </resources>

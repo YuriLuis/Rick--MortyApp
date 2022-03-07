@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_pesonagensFragment_to_detalhePersonagemFragment"
             app:destination="@id/detalhePersonagemFragment" />
+        <action
+            android:id="@+id/action_pesonagensFragment_to_personagensFavoritosFragment"
+            app:destination="@id/personagensFavoritosFragment" />
     </fragment>
     <fragment
         android:id="@+id/detalhePersonagemFragment"
@@ -23,5 +26,14 @@
             app:argType="com.yuri.apprickmorty.data.models.Personagem">
 
         </argument>
+    </fragment>
+    <fragment
+        android:id="@+id/personagensFavoritosFragment"
+        android:name="com.yuri.apprickmorty.ui.main.views.PersonagensFavoritosFragment"
+        android:label="fragment_personagens_favoritos"
+        tools:layout="@layout/fragment_personagens_favoritos" >
+        <action
+            android:id="@+id/action_personagensFavoritosFragment_to_detalhePersonagemFragment"
+            app:destination="@id/detalhePersonagemFragment" />
     </fragment>
 </navigation>
