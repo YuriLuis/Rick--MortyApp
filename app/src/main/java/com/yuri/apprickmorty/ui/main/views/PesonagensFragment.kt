@@ -7,36 +7,47 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.yuri.apprickmorty.R
-import com.yuri.apprickmorty.data.repositories.PersonagemRepositoryImpl
-import com.yuri.apprickmorty.data.services.remote.api.RickMortyRetrofit
 import com.yuri.apprickmorty.databinding.FragmentPesonagensBinding
 import com.yuri.apprickmorty.ui.main.adapters.ListaPersonagemAdapter
 import com.yuri.apprickmorty.ui.main.viewmodels.PersonagemViewModel
 import com.yuri.apprickmorty.ui.main.viewmodelsfactory.PersonagemViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 const val PAGINA_INICIAL = 1
 
-class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
+@AndroidEntryPoint
+class PesonagensFragment : Fragment() {
 
     private lateinit var binding: FragmentPesonagensBinding
-    private val viewModel: PersonagemViewModel by activityViewModels {
-        PersonagemViewModelFactory(PersonagemRepositoryImpl(RickMortyRetrofit.apiRickMorty))
-    }
-    private val adapter = ListaPersonagemAdapter()
+
+    @Inject
+    lateinit var viewModelFactory: PersonagemViewModelFactory
+
+    lateinit var viewModel: PersonagemViewModel
+
+    @Inject
+    lateinit var adapter: ListaPersonagemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pesonagens, container, false)
+        return inflater.inflate(R.layout.fragment_pesonagens, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentPesonagensBinding.bind(view)
+        viewModel = ViewModelProvider(this, viewModelFactory)[PersonagemViewModel::class.java]
         iniciaComponentesView()
         configuraObserverIsCarregando()
         configuraObserverListaPersonagens()
-        return binding.root
+        viewModel.getPersonagens(PAGINA_INICIAL)
     }
 
     private fun configuraObserverListaPersonagens() {
@@ -45,7 +56,7 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
         })
     }
 
-    private fun configuraObserverIsCarregando(){
+    private fun configuraObserverIsCarregando() {
         viewModel.isCarregandoLiveData.observe(viewLifecycleOwner, { isCarregando ->
             when {
                 isCarregando -> {
@@ -96,8 +107,4 @@ class PesonagensFragment : Fragment(R.layout.fragment_pesonagens) {
         binding.recycclerviewPersonagens.adapter = adapter
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-           viewModel.getPersonagens(PAGINA_INICIAL)
-    }
 }

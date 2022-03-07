@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.yuri.apprickmorty.data.models.Personagem
 import com.yuri.apprickmorty.data.repositories.PersonagemRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class PersonagemViewModel(
