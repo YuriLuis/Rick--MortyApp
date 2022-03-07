@@ -83,7 +83,7 @@
         tools:listitem="@layout/persongem_item_view_recyclerview"
         tools:orientation="vertical"
         tools:spanCount="2"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -96,6 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
