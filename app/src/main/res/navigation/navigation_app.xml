@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/pesonagensFragment"
-        android:name="com.yuri.apprickmorty.ui.main.views.PesonagensFragment"
+        android:name="com.yuri.apprickmorty.ui.views.PesonagensFragment"
         android:label="fragment_pesonagens"
         tools:layout="@layout/fragment_pesonagens" >
         <action
@@ -19,17 +19,19 @@
     </fragment>
     <fragment
         android:id="@+id/detalhePersonagemFragment"
-        android:name="com.yuri.apprickmorty.ui.main.views.DetalhePersonagemFragment"
+        android:name="com.yuri.apprickmorty.ui.views.DetalhePersonagemFragment"
         android:label="DetalhePersonagemFragment"
         tools:layout="@layout/fragment_detalhe_personagem">
         <argument android:name="personagem"
             app:argType="com.yuri.apprickmorty.data.models.Personagem">
-
         </argument>
+        <argument
+            android:name="telaVindaPorParametro"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/personagensFavoritosFragment"
-        android:name="com.yuri.apprickmorty.ui.main.views.PersonagensFavoritosFragment"
+        android:name="com.yuri.apprickmorty.ui.views.PersonagensFavoritosFragment"
         android:label="fragment_personagens_favoritos"
         tools:layout="@layout/fragment_personagens_favoritos" >
         <action

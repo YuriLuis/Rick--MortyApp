@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@color/black_ligth"
-    tools:context=".ui.main.views.PesonagensFragment" >
+    tools:context=".ui.views.PesonagensFragment" >
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchViewPesquisaPersonagens"
