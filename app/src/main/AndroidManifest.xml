@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppRickMorty">
         <activity
-            android:name=".ui.main.views.MainActivity"
+            android:name="com.yuri.apprickmorty.ui.views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

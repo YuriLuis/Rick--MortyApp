@@ -1,23 +1,27 @@
 package com.yuri.apprickmorty.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.yuri.apprickmorty.data.db.PERSONAGENS
 import java.io.Serializable
-
+@Entity(tableName = PERSONAGENS)
 data class Personagem(
-    var id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     @SerializedName("name")
-    var nome: String,
-    var status: String,
+    val nome: String?,
+    val status: String?,
     @SerializedName("species")
-    var especie: String,
+    val especie: String?,
     @SerializedName("gender")
-    var genero: String,
+    val genero: String?,
     @SerializedName("origin")
-    var origem: LocacaoData,
+    val origem: LocacaoData?,
     @SerializedName("location")
-    var local: LocacaoData,
-    var image: String,
+    val local: LocacaoData?,
+    val image: String?,
     @SerializedName("episode")
-    var episodios: List<String>
+    val episodios: List<String>?
 ): Serializable {
 }
