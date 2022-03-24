@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimensao_16_dp">16dp</dimen>
+    <dimen name="dimensao_8_dp">8dp</dimen>
+    <dimen name="dimensao_elevacao_2_dp">2dp</dimen>
+    <dimen name="dimensao_50_dp">50dp</dimen>
+    <dimen name="dimensao_18_dp">18dp</dimen>
+    <dimen name="tamanho_texto_18_sp">18sp</dimen>
+    <dimen name="dimensao_190_dp">190dp</dimen>
+    <dimen name="dimensao_4_dp">4dp</dimen>
+    <dimen name="dimensao_35_dp">35dp</dimen>
+    <dimen name="dimensao_12_dp">12dp</dimen>
+    <dimen name="tamanho_fonte_16_sp">16sp</dimen>
+    <dimen name="tamanho_fonte_12_sp">12sp</dimen>
+    <dimen name="dimensao_32_dp">32dp</dimen>
+    <dimen name="tamanho_fonte_20_dp">20sp</dimen>
+    <dimen name="dimensao_24_dp">24dp</dimen>
+</resources>
