@@ -1,10 +1,5 @@
 package com.yuri.apprickmorty.utils
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-
 sealed class Resource<T>(
     val data: T? = null,
     val message: String? = null

@@ -9,5 +9,31 @@
         android:id="@+id/pesonagensFragment"
         android:name="com.yuri.apprickmorty.ui.main.views.PesonagensFragment"
         android:label="fragment_pesonagens"
-        tools:layout="@layout/fragment_pesonagens" />
+        tools:layout="@layout/fragment_pesonagens" >
+        <action
+            android:id="@+id/action_pesonagensFragment_to_detalhePersonagemFragment"
+            app:destination="@id/detalhePersonagemFragment" />
+        <action
+            android:id="@+id/action_pesonagensFragment_to_personagensFavoritosFragment"
+            app:destination="@id/personagensFavoritosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalhePersonagemFragment"
+        android:name="com.yuri.apprickmorty.ui.main.views.DetalhePersonagemFragment"
+        android:label="DetalhePersonagemFragment"
+        tools:layout="@layout/fragment_detalhe_personagem">
+        <argument android:name="personagem"
+            app:argType="com.yuri.apprickmorty.data.models.Personagem">
+
+        </argument>
+    </fragment>
+    <fragment
+        android:id="@+id/personagensFavoritosFragment"
+        android:name="com.yuri.apprickmorty.ui.main.views.PersonagensFavoritosFragment"
+        android:label="fragment_personagens_favoritos"
+        tools:layout="@layout/fragment_personagens_favoritos" >
+        <action
+            android:id="@+id/action_personagensFavoritosFragment_to_detalhePersonagemFragment"
+            app:destination="@id/detalhePersonagemFragment" />
+    </fragment>
 </navigation>
