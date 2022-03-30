@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.yuri.apprickmorty.R
 import com.yuri.apprickmorty.databinding.FragmentPesonagensBinding
 import com.yuri.apprickmorty.ui.adapters.ListaPersonagemAdapter
+import com.yuri.apprickmorty.ui.adapters.ListaPersonagemAdapterPaging
 import com.yuri.apprickmorty.ui.viewmodels.PersonagemViewModel
+import com.yuri.apprickmorty.ui.viewmodels.PersonagemViewModelPaging
 import com.yuri.apprickmorty.ui.viewmodelsfactory.PersonagemViewModelFactory
+import com.yuri.apprickmorty.ui.viewmodelsfactory.PersonagemViewModelPagingFactory
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 var PAGINA_INICIAL = 1
@@ -23,17 +28,12 @@ class PesonagensFragment : Fragment() {
     private lateinit var binding: FragmentPesonagensBinding
 
     @Inject
-    lateinit var viewModelFactory: PersonagemViewModelFactory
+    lateinit var viewModelFactory: PersonagemViewModelPagingFactory
 
-    lateinit var viewModel: PersonagemViewModel
+    lateinit var viewModel: PersonagemViewModelPaging
 
     @Inject
-    lateinit var adapter: ListaPersonagemAdapter
-
-    private var isScrolling = false
-    private var isLoading = false
-    private var isLastPage = false
-    private var pages = 0
+    lateinit var adapter: ListaPersonagemAdapterPaging
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,23 +46,29 @@ class PesonagensFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPesonagensBinding.bind(view)
-        viewModel = ViewModelProvider(this, viewModelFactory)[PersonagemViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[PersonagemViewModelPaging::class.java]
         iniciaComponentesView()
         configuraObserverIsCarregando()
         configuraObserverListaPersonagens()
-        viewModel.getPersonagens(PAGINA_INICIAL)
+        //viewModel.getPersonagens(PAGINA_INICIAL)
     }
 
     private fun configuraObserverListaPersonagens() {
-        viewModel.personagensLiveData.observe(viewLifecycleOwner, { response ->
-            adapter.setPersonagensParaAdapter(response.data!!.results)
-        })
+        lifecycleScope.launchWhenCreated {
+            viewModel.getListData().collectLatest {
+                adapter.submitData(it)
+            }
+        }
+
+        //viewModel.personagensLiveData.observe(viewLifecycleOwner, { response ->
+        //adapter.setPersonagensParaAdapter(response.data!!.results)
+        //  })
     }
 
     private fun configuraObserverIsCarregando() {
-        viewModel.isCarregandoLiveData.observe(viewLifecycleOwner, { isCarregando ->
+        viewModel.isCarregandoLiveData.observe(viewLifecycleOwner, {
             when {
-                isCarregando -> {
+                it -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.recycclerviewPersonagens.visibility = View.INVISIBLE
                 }
@@ -81,27 +87,11 @@ class PesonagensFragment : Fragment() {
     }
 
     private fun configuraObserverPersonagensSearchView() {
-        viewModel.isFiltroLiveData.observe(viewLifecycleOwner, {
-            binding.textViewResete.visibility = if (it) View.VISIBLE else View.INVISIBLE
-        })
+
     }
 
     private fun eventoPesquisaPersonagemSearchView() {
-        binding.searchViewPesquisaPersonagens.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
 
-                viewModel.getPersonagensPorNome(query.toString())
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.equals("")) {
-                    viewModel.getPersonagens(PAGINA_INICIAL)
-                }
-                return true
-            }
-        })
     }
 
     private fun configuraRecyclerView() {

@@ -101,6 +101,9 @@ dependencies {
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:2.3.5")
 
+    //Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+
     // Local unit tests
     testImplementation "androidx.test:core:1.4.0"
     testImplementation "junit:junit:4.13.2"

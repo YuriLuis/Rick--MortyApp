@@ -25,3 +25,5 @@ data class Personagem(
     val episodios: List<String>?
 ): Serializable {
 }
+
+data class Info(val count: Int?, val pages: String?, val next: String?,val prev: String?)
